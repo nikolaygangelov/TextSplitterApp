@@ -1,0 +1,24 @@
+﻿﻿@* this directive makes the model available to the view *@
+@model TextViewModel
+@{
+    ViewData["Title"] = "Text Splitter"; @*setting page title*@
+}
+
+@*passes a model with splitted text to the controller when the form is submitted*@
+<form asp-controller="Home" asp-action="Split" method="post"> @*which controller and action should be accessed*@
+    <div class="col-12">
+        <input asp-for="@Model.Text" class="mr-2" /><br />  @*actual model passed by method View() in action Index of HomeController*@
+                                                            @*asp-for is like name tag; binds request data to action parameters by name (model binding)*@
+        <span asp-validation-for="@Model.Text" class="small text-danger col-2"></span><br /> @*it attaches the validation message on the input field for entering text.*@
+        <button type="submit" class="btn btn-primary">Split text</button>
+    </div>
+
+    <div class="col-2 mt-3">
+        <textarea rows="10">@Model.SplitText</textarea> @* "@" allow us to use C# code inside HTML*@
+    </div>
+</form>
+
+@*needed for the validations to be working*@
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
